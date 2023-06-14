@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames, filterVideogamesByOrigin, setCurrentPage, setOrigin } from "../../actions/index.js";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Card from "../card/Card.jsx";
 import Pages from "../pages/Pages.jsx";
 import SearchBar from "../searchBar/SearchBar.jsx";
@@ -13,6 +13,7 @@ import noGameSearh from "./noGameSearch.gif"
 
 export default function Home (){
     const dispatch = useDispatch();
+    const location = useLocation();
     const allVideogames = useSelector((state) => state.videogames);
     const pageNumber = useSelector((state) => state.currentPage);
     const origin = useSelector((state) => state.origin || "all");
@@ -25,15 +26,13 @@ export default function Home (){
 
     useEffect(() => {
         dispatch(getVideogames());
-        // console.log(allVideogames);
-        console.log(origin);
         return () => {
           dispatch(setCurrentPage(1));  
           dispatch(setOrigin("all"));
           setRatingOrder("");
           setAlphabeticalOrder("");
         };
-      }, [dispatch]);
+      }, [dispatch, location.pathname]);
 
     function handleClick(e){
         e.preventDefault();      
@@ -60,7 +59,6 @@ export default function Home (){
         dispatch(setOrigin(origin));
         dispatch(setCurrentPage(1));
         dispatch(filterVideogamesByOrigin(origin));
-        console.log(allVideogames);
     };
 
     const handleRatingSort = (e) => {
@@ -96,7 +94,6 @@ export default function Home (){
       const currentVideogames = allVideogames && allVideogames.length ? allVideogames.slice(indexOfFirstVideogame, indexOfLastVideogame) : [];
       return (
         <div>
-          {console.log(`Origin: ${origin}`)}
           {((origin === "db" || origin === "search") ? !allVideogames : (!allVideogames || allVideogames.length === 0))  ? (
               <LoadingPage/> 
             ) : ( 

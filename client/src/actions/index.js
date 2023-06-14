@@ -61,7 +61,6 @@ export function getDetail(payload){
 export function postVideogame(payload){
     return async function(dispatch){
         const response = await axios.post(`/videogames`, payload);
-        console.log(response);
         return response
     }
 };
