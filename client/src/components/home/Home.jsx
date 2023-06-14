@@ -55,6 +55,11 @@ export default function Home (){
 
     function handleFilterOrigin(e){
         e.preventDefault();
+        const handleLocationChange = () => {
+          dispatch(setCurrentPage(1));
+        };
+      
+        window.addEventListener('popstate', handleLocationChange);
         const origin = e.target.value
         dispatch(setOrigin(origin));
         dispatch(setCurrentPage(1));
