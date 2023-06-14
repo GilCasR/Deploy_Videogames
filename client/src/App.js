@@ -1,4 +1,4 @@
-import axios from `axios`;
+import axios from "axios";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/LandingPage.jsx";
 import Home from "./components/home/Home.jsx";
