@@ -30,7 +30,6 @@ const validate = (input) => {
     }else if (!input.platforms || input.platforms.length === 0){
         errors.platforms = "Please select at least one platform"
     }; 
-    console.log(errors);
     return errors;
 };
 

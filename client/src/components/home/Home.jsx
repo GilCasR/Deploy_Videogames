@@ -26,6 +26,13 @@ export default function Home (){
 
     useEffect(() => {
         dispatch(getVideogames());
+
+        const handleLocationChange = () => {
+          dispatch(setCurrentPage(1));
+        };
+      
+        window.addEventListener('popstate', handleLocationChange);
+        
         return () => {
           dispatch(setCurrentPage(1));  
           dispatch(setOrigin("all"));
